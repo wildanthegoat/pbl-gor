@@ -26,7 +26,7 @@
               <img src="img/badminton.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Jumlah Lapangan</h5>
-                <h2 class="card-text text-center">2</h2> <!-- Ganti dengan nilai statis -->
+                <h2 class="card-text text-center">{{ $jumlahLapangan }}</h2> <!-- Ganti dengan nilai statis -->
               </div>
             </div>
           </div>
@@ -41,10 +41,10 @@
           </div>
           <div class="col">
             <div class="card align-items-center">
-              <img src="img/olahraga.jpg" class="card-img-top" alt="...">
+              <img src="img/avatar-1.png" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Jumlah Member</h5>
-                <h2 class="card-text text-center">30</h2> <!-- Ganti dengan nilai statis -->
+                <h2 class="card-text text-center">{{ $jumlahMember }}</h2> <!-- Ganti dengan nilai statis -->
               </div>
             </div>
           </div>

@@ -131,6 +131,86 @@
     <!-- Navbar -->
     <x-navbar></x-navbar>
     <!-- End Navbar -->
+    <!-- Modal Profil -->
+   @auth
+   <div class="modal fade" id="profilModal" tabindex="-1" aria-labelledby="profilModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="profilModalLabel">Profil Pengguna</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <form action="" method="post">
+           <div class="modal-body">
+             <div class="row">
+               <div class="col-4 my-2">
+                 <img src="img/avatar-1.png" alt="Foto Profil" class="img-fluid ">
+               </div>
+               <div class="col-8">
+               <h5 class="mb-3">{{ auth()->user()->name ?? '' }}</h5>
+                 <p>{{ auth()->user()->jk ?? '' }}</p>
+                 <p>{{ auth()->user()->email ?? '' }}</p>
+                 <p>{{ auth()->user()->no_hp ?? '' }}</p>
+                 <a href="" data-bs-toggle="modal" data-bs-target="#editProfilModal" class="btn btn-success">Edit Profil</a>
+               </div>
+             </div>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+   @endauth
+   <!-- Modal Profil -->
+ 
+   <!-- Edit profil -->
+    @auth
+   <div class="modal fade" id="editProfilModal" tabindex="-1" aria-labelledby="editProfilModalLabel" aria-hidden="true">
+     <div class="modal-dialog edit modal-dialog-centered">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="editProfilModalLabel">Edit Profil</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <form action="{{route('users.update')}}" method="POST" enctype="multipart/form-data">
+         @csrf
+         @method('PUT')
+           <div class="modal-body">
+             <div class="row justify-content-center align-items-center">
+               <div class="col">
+                 <div class="mb-3">
+                   <label for="name" class="form-label">Nama Lengkap</label>
+                   <input type="text" name="name" class="form-control" id="name" value="{{ auth()->user()->name ?? '' }}">
+                 </div>
+                 <div class="mb-3">
+                   <label for="jk" class="form-label">Jenis Kelamin</label>
+                   <select class="form-control" id="jk" name="jk" required>
+                   <option value="Laki-laki" {{ auth()->user()->jk == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                   <option value="Perempuan" {{ auth()->user()->jk == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                   </select>
+                 </div>
+               </div>
+               <div class="col">
+                 <div class="mb-3">
+                 <label for="no_hp" class="form-label">No Telp</label>
+                   <input type="number" name="no_hp" class="form-control" id="no_hp" value="{{ auth()->user()->no_hp ?? '' }}">
+                 </div>
+                 <div class="mb-3">
+                   <label for="email" class="form-label">Email</label>
+                   <input type="email" name="email" class="form-control" id="email" value="{{ auth()->user()->email ?? '' }}">
+                 </div>
+               </div>
+             </div>  
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+             <button type="submit" class="btn btn-success" name="simpan" id="simpan">Simpan</button>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+   @endauth
+   <!-- End Edit Modal -->
 
     <!-- Table Section -->
     <section class="lapangan mb-5" id="lapangan">
@@ -223,6 +303,7 @@
     </div>
 </section>
     <!-- End Table Section -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script>
         feather.replace()
     </script>

@@ -35,33 +35,25 @@
           <form action="" method="post">
             <tbody class="text">
               <!-- Static Data Sample Row -->
-              <tr>
-                <th scope="row">1</th>
-                <td>John Doe</td>
-                <td>Laki-Laki</td>
-                <td>johndoe@example.com</td>
-                <td>08123456789</td>
-                <td>
-                  <a href="#" class="btn btn-danger">Hapus</a>
-                </td>
-              </tr>
+              @foreach($users as $user)
+            <tr>
+              <th scope="row">{{ $loop->iteration }}</th>
+              <td>{{ $user->name }}</td>
+              <td>{{ $user->jk }}</td>
+              <td>{{ $user->email }}</td>
+              <td>{{ $user->no_hp }}</td>
+              <td>
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+              </td>
+            </tr>
+            @endforeach
               <!-- Add more static rows as needed -->
             </tbody>
           </form>
         </table>
-
-        <ul class="pagination">
-          <li class="page-item">
-            <a href="#" class="page-link">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a href="#" class="page-link">Next</a>
-          </li>
-        </ul>
-
       </div>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

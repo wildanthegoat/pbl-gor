@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -16,9 +17,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $users = User::where('role', 'user')
+        ->where('id', $request->id_users) // Pastikan $request->id adalah ID yang ingin Anda filter
+        ->paginate(10);
+        return view('users.lapangan');
     }
 
     /**
@@ -34,7 +36,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('users.lapangan')->with('status', 'profile-updated');
     }
 
     /**

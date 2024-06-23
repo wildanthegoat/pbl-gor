@@ -130,11 +130,11 @@
 <body>
     <div class="center">
         <h1>Login</h1>
-        @if (Session::has('message'))
-            <div class="alert">
-                {{ Session::get('message') }}
-            </div>
-        @endif
+        @if ($errors->has('login'))
+    <div class="alert alert-danger" role="alert">
+        {{ $errors->first('login') }}
+    </div>
+@endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="txt_field">

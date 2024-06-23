@@ -75,7 +75,6 @@
             <tr>
               <th scope="col">No</th>
               <th scope="col">Username</th>
-              <th scope="col">Nama Lengkap</th>
               <th scope="col">Email</th>
               <th scope="col">No Hp</th>
               <th scope="col">Aksi</th>
@@ -83,43 +82,21 @@
           </thead>
           <tbody class="text">
             <!-- Example data rows -->
+            @foreach($users as $user)
             <tr>
-              <th scope="row">1</th>
-              <td>admin1</td>
-              <td>Admin Satu</td>
-              <td>admin1@example.com</td>
-              <td>1234567890</td>
+              <th scope="row">{{ $loop->iteration }}</th>
+              <td>{{ $user->name }}</td>
+              <td>{{ $user->email }}</td>
+              <td>{{ $user->no_hp }}</td>
               <td>
-                <button class="btn btn-inti" data-bs-toggle="modal" data-bs-target="#editModal1">Edit</button>
-                <a href="#" class="btn btn-danger">Hapus</a>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>admin2</td>
-              <td>Admin Dua</td>
-              <td>admin2@example.com</td>
-              <td>0987654321</td>
-              <td>
+          
                 <button class="btn btn-inti" data-bs-toggle="modal" data-bs-target="#editModal2">Edit</button>
                 <a href="#" class="btn btn-danger">Hapus</a>
               </td>
             </tr>
+           @endforeach 
           </tbody>
         </table>
-
-        <ul class="pagination">
-          <li class="page-item disabled">
-            <a href="#" class="page-link">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a href="#" class="page-link">Next</a>
-          </li>
-        </ul>
-
       </div>
 
 

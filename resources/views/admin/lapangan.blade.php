@@ -80,6 +80,8 @@
               <td>{{ $lapangan->keterangan }}</td>
               <td><img src="{{ asset('images/' . $lapangan->foto) }}" alt="{{ $lapangan->nama_lapangan }}" width="100"></td>
               <td>
+
+              
                 <button class="btn btn-inti" data-bs-toggle="modal" data-bs-target="#editModal{{$lapangan->id_lapangan}}">Edit</button>
                 <!-- Modal Edit -->
                 <div class="modal fade" id="editModal{{$lapangan->id_lapangan}}" tabindex="-1" aria-labelledby="editModal{{$lapangan->id_lapangan}}Label" aria-hidden="true">

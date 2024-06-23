@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lapangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 class LapanganController extends Controller
@@ -27,9 +28,11 @@ class LapanganController extends Controller
 
         // Store the new lapangan data
         $lapangan = new Lapangan;
+        $lapangan->id_user = Auth::id();
         $lapangan->nama_lapangan = $request->nama_lapangan;
         $lapangan->harga = $request->harga;
         $lapangan->keterangan = $request->keterangan;
+        $lapangan->tanggal = now();
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
@@ -41,7 +44,7 @@ class LapanganController extends Controller
         $lapangan->save();
 
         // Redirect back to the lapangan index page with a success message
-        return redirect()->route('admin.lapangan')->with('success', 'Lapangan added successfully.');
+        return redirect('/admin/lapangan')->with('success', 'Lapangan added successfully.');
     }
 
     
@@ -56,12 +59,16 @@ class LapanganController extends Controller
         ]);
 
         // Ambil data lapangan yang akan diperbarui
-        $lapangan = Lapangan::findOrFail($id);
+        $lapangan = Lapangan::where('id_lapangan', $id)->firstOrFail();
+
 
         // Update data lapangan
+        $lapangan->id_user = Auth::id();
         $lapangan->nama_lapangan = $request->input('nama_lapangan');
         $lapangan->harga = $request->input('harga');
         $lapangan->keterangan = $request->input('keterangan');
+        $lapangan->tanggal = now();
+
 
         // Cek apakah ada file foto yang diunggah
         if ($request->hasFile('foto')) {
@@ -79,6 +86,6 @@ class LapanganController extends Controller
         $lapangan->save();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('admin.lapangan')->with('success', 'Data lapangan berhasil diperbarui.');
+        return redirect('/admin/lapangan')->with('success', 'Data lapangan berhasil diperbarui.');
     }
 }

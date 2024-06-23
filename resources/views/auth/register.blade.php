@@ -89,8 +89,8 @@
         </div>
         <div class="col">
           <div class="mb-3">
-            <label for="hp" class="form-label">No Hp</label>
-            <input type="text" name="hp" class="form-control" id="hp" required maxlength="12">
+            <label for="no_hp" class="form-label">No Hp</label>
+            <input type="text" name="no_hp" class="form-control" id="no_hp" required maxlength="12">
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
@@ -101,18 +101,14 @@
             <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" required>
           </div>
         </div>
-        <div class="mb-3">
-          <label for="alamat" class="form-label">Alamat</label>
-          <input type="text" name="alamat" class="form-control" id="alamat" required maxlength="100">
-        </div>
         <div class="mb-3 d-flex align-items-center">
           <p class="mb-0">Jenis Kelamin:</p>
           <div class="form-check mx-3">
-            <input class="form-check-input" type="radio" name="gender" id="male" value="Laki-Laki" required>
+            <input class="form-check-input" type="radio" name="jk" id="jk" value="Laki-Laki" required>
             <label class="form-check-label" for="male">Laki-Laki</label>
           </div>
           <div class="form-check mx-3">
-            <input class="form-check-input" type="radio" name="gender" id="female" value="Perempuan" required>
+            <input class="form-check-input" type="radio" name="jk" id="jk" value="Perempuan" required>
             <label class="form-check-label" for="female">Perempuan</label>
           </div>
         </div>
