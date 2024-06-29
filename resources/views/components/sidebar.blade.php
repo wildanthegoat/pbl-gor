@@ -11,6 +11,6 @@
   </ul>
   <form method="POST" action="{{ route('logout') }}">
       @csrf
-      <button type="submit" class="mt-5 btn btn-inti text-dark">{{ __('Log Out') }}</button>
+      <button type="submit" class="mt-5 btn btn-danger">{{ __('Log Out') }}</button>
   </form>
 </div>

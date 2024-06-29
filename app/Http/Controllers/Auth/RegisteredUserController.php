@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'no_hp' => ['required', new \App\Rules\NomorHP(10)],
         ]);
 
         $user = User::create([
@@ -46,7 +47,9 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        flash()->success('Login Berhasil!');
 
-        return redirect(route('Register', absolute: false));
+
+        return redirect(route('register', absolute: false));
     }
 }

@@ -47,8 +47,10 @@ class UserController extends Controller
     // Update field lainnya sesuai kebutuhan
 
     $request->user()->save(); // Simpan perubahan
+    
+    flash()->success('Profil berhasil diperbarui');
 
-    return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+    return redirect()->back();
     }
 
     public function lapangan()

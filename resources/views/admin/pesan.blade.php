@@ -31,88 +31,81 @@
               <th scope="col">NamaCust</th>
               <th scope="col">TglPesan</th>
               <th scope="col">TglMain</th>
-              <th scope="col">Lama</th>
+              <th scope="col">Jam Mulai</th>
+              <th scope="col">Jam Selesai</th>
               <th scope="col">Total</th>
               <th scope="col">Bukti</th>
               <th scope="col">Konfir</th>
-              <th scope="col"></th>
             </tr>
           </thead>
           <tbody class="text">
-            <!-- Static Data Sample Row -->
+            @foreach ($pesanans as $key => $pesanan)
             <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>2024-01-01</td>
-              <td>2024-01-02</td>
-              <td>2 Hours</td>
-              <td>$100</td>
-              <td><img src="../img/sample.jpg" width="100" height="100"></td>
-              <td>Pending</td>
-              <td>
-                <button type="button" class="btn btn-inti" data-bs-toggle="modal" data-bs-target="#konfirmasiModal1">Konfir</button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal1">Hapus</button>
-              </td>
+            <td>{{ $key + 1 }}</td>
+        <td>{{ $pesanan->user->name }}</td>
+        <td>{{ $pesanan->created_at }}</td>
+        <td>{{ $pesanan->tanggal }}</td>
+        <td>{{ $pesanan->jam_mulai }}</td>
+        <td>{{ $pesanan->jam_selesai }}</td>
+        <td>{{ $pesanan->total_bayar }}</td>
+        <td>
+            @if((isset($pesanan->pembayaran->bukti_pembayaran)))
+                <a href="{{ asset('bukti/' . $pesanan->pembayaran->bukti_pembayaran) }}" target="_blank">
+                    <img src="{{ asset('bukti/' . $pesanan->pembayaran->bukti_pembayaran) }}" alt="Bukti Pembayaran" width="100">
+                </a>
+            @else
+              belum upload bukti
+                
+            @endif
+        </td>
+        <td>{{ $pesanan->nama_lapangan }}</td>
+        <td>
+          @if ($pesanan->status == 'Dikonfirmasi')
+            <span class="badge bg-success">dikonfirmasi</span>
+          @else
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#konfirmasiModal1{{$pesanan->id_pesanan}}">Konfir</button>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapusModal1">Hapus</button>
+          @endif
+         
+        </td>
             </tr>
-            <!-- Add more static rows as needed -->
+            @endforeach
           </tbody>
         </table>
-
-        <!-- Pagination (Static Example) -->
-        <ul class="pagination">
-          <li class="page-item">
-            <a href="#" class="page-link">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a href="#" class="page-link">Next</a>
-          </li>
-        </ul>
-
-        <!-- Modal Konfirmasi -->
-        <div class="modal fade" id="konfirmasiModal1" tabindex="-1" aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="konfirmasiModalLabel">Konfirmasi Pesanan John Doe</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>Anda yakin ingin mengkonfirmasi pesanan ini?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <a href="#" class="btn btn-primary">Konfirmasi</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Modal Konfirmasi -->
-
-        <!-- Modal Hapus -->
-        <div class="modal fade" id="hapusModal1" tabindex="-1" aria-labelledby="hapusModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="hapusModalLabel">Hapus Pesanan John Doe</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p>Anda yakin ingin menghapus pesanan ini?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <a href="#" class="btn btn-danger">Hapus</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Modal Hapus -->
       </div>
     </div>
   </div>
+
+  <!-- Modal Konfirmasi -->
+   @foreach ($pesanans as $pesanan)
+<div class="modal fade" id="konfirmasiModal1{{$pesanan->id_pesanan}}" tabindex="-1" aria-labelledby="konfirmasiModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="konfirmasiModalLabel{{$pesanan->id_pesanan}}">Konfirmasi Pesanan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form action="{{ route('admin.konfir', $pesanan->id_pesanan) }}" method="POST" enctype="multipart/form-data">
+              @csrf
+              @method('PUT')
+            <p>Anda yakin ingin mengkonfirmasi pesanan atas nama <strong>{{$pesanan->user->name}}</strong> ini?</p>
+            @if(!$pesanan->pembayaran || !$pesanan->pembayaran->bukti_pembayaran)
+              <p class="text-danger">Mohon maaf, user belum mengupload bukti pembayaran.</p>
+            @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Konfirmasi</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+<!-- End Modal Konfirmasi -->
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>

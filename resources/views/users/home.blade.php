@@ -148,6 +148,7 @@ header {
     <!-- kontak -->
 
     <script>
+         
         const menuBar = document.querySelector(".menu-bar");
         const menuNav = document.querySelector(".menu-navigation");
 

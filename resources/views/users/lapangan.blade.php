@@ -24,7 +24,7 @@
       align-content: center;
     }
 
-    .modal-body {}
+  
 
     .lapangan .card {
       width: 17rem;
@@ -49,7 +49,8 @@
           <h5 class="modal-title" id="profilModalLabel">Profil Pengguna</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="" method="post">
+        <form action="{{route('logout')}}" method="post">
+          @csrf
           <div class="modal-body">
             <div class="row">
               <div class="col-4 my-2">
@@ -60,6 +61,7 @@
                 <p>{{ auth()->user()->jk ?? '' }}</p>
                 <p>{{ auth()->user()->email ?? '' }}</p>
                 <p>{{ auth()->user()->no_hp ?? '' }}</p>
+                <button type="submit" class="btn btn-danger mr-5">Logout</button>
                 <a href="" data-bs-toggle="modal" data-bs-target="#editProfilModal" class="btn btn-success">Edit Profil</a>
               </div>
             </div>
@@ -154,36 +156,37 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <form action="{{ route('pesan.store') }}" method="POST" enctype="multipart/form-data">
-                                      @csrf
-                                      <!-- Form fields -->
-                                      <div class="modal-body">
-                                          <div class="row justify-content-center align-items-center">
-                                              <div class="mb-3">
-                                                  <img src="{{ asset('images/' . $lapangan->foto) }}" alt="gambar lapangan" class="img-fluid">
-                                              </div>
-                                              <div class="text-center mb-3">
-                                                  <h6 name="harga">Harga per jam: {{ $lapangan->harga }}</h6>
-                                              </div>
-                                              <div class="col-12 mb-3">
-                                                  <input type="hidden" name="id_lpg" class="form-control" value="{{ $lapangan->id_lapangan }}">
-                                                  <label for="tgl_main" class="form-label">Tanggal Main</label>
-                                                  <input type="date" name="tgl_main" class="form-control" id="tgl_main">
-                                              </div>
-                                              <div class="col-6 mb-3">
-                                                  <label for="jam_mulai" class="form-label">Jam Mulai</label>
-                                                  <input type="time" name="jam_mulai" class="form-control" id="jam_mulai" min="09:00" max="22:00">
-                                              </div>
-                                              <div class="col-6 mb-3">
-                                                  <label for="jam_selesai" class="form-label">Jam Selesai</label>
-                                                  <input type="time" name="jam_selesai" class="form-control" id="jam_selesai" min="09:00" max="22:00">
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                          <button type="submit" class="btn btn-success" name="pesan" id="pesan">Pesan</button>
-                                      </div>
-                                  </form>                                  
+    @csrf
+    <!-- Form fields -->
+    <div class="modal-body">
+        <div class="row justify-content-center align-items-center">
+            <div class="mb-3">
+                <img src="{{ asset('images/' . $lapangan->foto) }}" alt="gambar lapangan" class="img-fluid">
+            </div>
+            <div class="text-center mb-3">
+                <h6 name="harga">Harga per jam: {{ $lapangan->harga }}</h6>
+            </div>
+            <div class="col-12 mb-3">
+                <input type="hidden" name="id_lapangan" class="form-control" value="{{ $lapangan->id_lapangan }}">
+                <label for="tanggal" class="form-label">Tanggal Main</label>
+                <input type="date" name="tanggal" class="form-control" id="tanggal">
+            </div>
+            <div class="col-6 mb-3">
+                <label for="jam_mulai" class="form-label">Jam Mulai</label>
+                <input type="time" name="jam_mulai" class="form-control" id="jam_mulai" min="09:00" max="22:00">
+            </div>
+            <div class="col-6 mb-3">
+                <label for="jam_selesai" class="form-label">Jam Selesai</label>
+                <input type="time" name="jam_selesai" class="form-control" id="jam_selesai" min="09:00" max="22:00">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-success" name="pesan" id="pesan">Pesan</button>
+    </div>
+</form>
+                    
                                 </div>
                             </div>
                         </div>

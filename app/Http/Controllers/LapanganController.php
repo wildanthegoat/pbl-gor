@@ -43,8 +43,8 @@ class LapanganController extends Controller
 
         $lapangan->save();
 
-        // Redirect back to the lapangan index page with a success message
-        return redirect('/admin/lapangan')->with('success', 'Lapangan added successfully.');
+        flash()->success('Data Lapangan Berhasil ditambahkan');
+        return redirect('/admin/lapangan');
     }
 
     
@@ -85,7 +85,7 @@ class LapanganController extends Controller
         // Simpan perubahan
         $lapangan->save();
 
-        // Redirect dengan pesan sukses
+        flash()->success('Data Lapangan Berhasil diperbarui');
         return redirect('/admin/lapangan')->with('success', 'Data lapangan berhasil diperbarui.');
     }
 }

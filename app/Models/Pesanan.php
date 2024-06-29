@@ -10,16 +10,23 @@ class Pesanan extends Model
     use HasFactory;
 
     // Fillable fields for mass assignment
+    protected $table = 'pesanans';
+    protected $primaryKey = 'id_pesanan';
     protected $fillable = [
         'id_lapangan', 
-        'user_id', 
-        'tgl_main', 
+        'id_user', 
+        'tanggal', 
         'jam_mulai', 
         'jam_selesai', 
-        'harga'
+        'total_bayar'
     ];
 
     // Define the relationships
+    public function pembayaran()
+    {
+        return $this->hasOne(Pembayaran::class, 'id_pesanan');
+    }
+
     public function lapangan()
     {
         return $this->belongsTo(Lapangan::class, 'id_lapangan');
@@ -27,6 +34,6 @@ class Pesanan extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

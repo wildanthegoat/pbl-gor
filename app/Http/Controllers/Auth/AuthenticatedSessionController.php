@@ -30,8 +30,11 @@ class AuthenticatedSessionController extends Controller
 
         if($request->user()->role === 'admin')
         {
+            flash()->success('Login sebagai Admin Berhasil!');
             return redirect('/admin/home');
         }
+
+        flash()->success('Login Berhasil!');
 
         return redirect()->intended(route('login'));
     }
@@ -47,6 +50,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        flash()->success('Logout Berhasil!');
+
+        return redirect('/login');
     }
 }

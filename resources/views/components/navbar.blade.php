@@ -20,12 +20,8 @@
             </li>
           </ul>
           @auth
-          <a href="user/profil.php" data-bs-toggle="modal" data-bs-target="#profilModal" class="btn btn-inti">
+          <a href="user/profil.php" data-bs-toggle="modal" data-bs-target="#profilModal" class="btn btn-success">
             <i data-feather="user"></i></a>
-                <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-link">Logout</button>
-                </form>
                 @else
                 <a href="{{ route('login') }}" class="{{ request()->routeIs('login') || request()->routeIs('register') ? 'active' : '' }}">
                     <i class="fas fa-xl fa-sign-in-alt text-xl"></i>

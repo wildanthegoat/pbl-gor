@@ -35,6 +35,7 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+        flash()->success('Profile berhasil di-Update');
 
         return Redirect::route('users.lapangan')->with('status', 'profile-updated');
     }

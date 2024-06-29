@@ -10,7 +10,9 @@ class Lapangan extends Model
 {
     use HasFactory;
 
-    protected $primarykey = 'id_lapangan';
+    protected $primaryKey = 'id_lapangan';
+    public $incrementing = true; // Jika auto-increment
+    protected $keyType = 'int'; // Jika integer
 
     protected $fillable = [
         'nama_lapangan', 

@@ -34,32 +34,25 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/lapangan', [LapanganController::class, 'store'])->name('admin.lapangan.store');
     Route::put('/admin/lapangan/{id_lapangan}', [LapanganController::class, 'update'])->name('admin.lapangan.update');
     
-    // Route::get('/booking/{id_lapangan}', [PesanController::class, 'showBookingForm'])->name('pesan.form');
-    Route::post('/lapangan', [PesanController::class, 'store'])->name('pesan.store');
-
-    Route::get('/admin/pesanan', function () {
-        return view('admin.pesan');
-    })->name('admin.pesan');
+    Route::get('/admin/pesanan', [AdminController::class, 'indexpesan']);
+    Route::put('/admin/pesanan/{id_lapangan}', [AdminController::class, 'konfirpesanan'])->name('admin.konfir');
     
     });
-    
+    Route::post('/lapangan', [PesanController::class, 'store'])->name('pesan.store');
     Route::get('/lapangan', [UserController::class, 'userlapangan']);
     Route::put('/lapangan', [UserController::class, 'update'])->name('users.update');
     ROute::get('/lapangan', [UserController::class, 'lapangan']);
 
-    Route::get('/bayar', [PembayaranController::class, 'showPembayaran'])->name('bayar');
-    Route::post('/pembayaran', [PembayaranController::class, 'handlePembayaran'])->name('pembayaran.handle');
-
-// Route::get('/register', [AuthenticatedSessionController::class, 'store'])->name('lapangan');
 
 
-// Route::get('/lapangan', function () {
-//     return view('users.lapangan');
-// })->name('user.lapangan');
+    Route::get('/bayar', [PembayaranController::class, 'showPembayaran']);
+    // Route::post('/bayar', [PembayaranController::class, 'showPembayaran'])->name('bayar');
+    // Route::post('/bayar/{id_pesanan}', [PembayaranController::class, 'store'])->name('Pembayaran.store');
+    Route::put('/bayar/{id_pesanan}', [PembayaranController::class, 'store'])->name('Pembayaran.store');
 
-// Route::get('/lapangan', function () {
-//     return view('users.lapangan');
-// });
+
+
+
 // ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

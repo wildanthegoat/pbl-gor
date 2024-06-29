@@ -23,7 +23,7 @@
         <div class="row row-cols-1 row-cols-md-4 g-3 justify-content-center my-5 gap-3">
           <div class="col">
             <div class="card align-items-center">
-              <img src="img/badminton.jpg" class="card-img-top" alt="...">
+              <img src="{{ asset('img/court.jpg') }}" class="card-img-top img-detail" alt="badminton">
               <div class="card-body">
                 <h5 class="card-title">Jumlah Lapangan</h5>
                 <h2 class="card-text text-center">{{ $jumlahLapangan }}</h2> <!-- Ganti dengan nilai statis -->
@@ -32,16 +32,16 @@
           </div>
           <div class="col">
             <div class="card align-items-center">
-              <img src="img/olahraga.jpg" class="card-img-top" alt="...">
+              <img src="{{ asset('img/order.jpg') }}" class="card-img-top img-detail" alt="order">
               <div class="card-body">
                 <h5 class="card-title">Jumlah Pesanan</h5>
-                <h2 class="card-text text-center">20</h2> <!-- Ganti dengan nilai statis -->
+                <h2 class="card-text text-center">{{$jumlahPesanan}}</h2> <!-- Ganti dengan nilai statis -->
               </div>
             </div>
           </div>
           <div class="col">
             <div class="card align-items-center">
-              <img src="img/avatar-1.png" class="card-img-top" alt="...">
+              <img src="{{ asset('img/member.jpg') }}" class="card-img-top img-detail" alt="member">
               <div class="card-body">
                 <h5 class="card-title">Jumlah Member</h5>
                 <h2 class="card-text text-center">{{ $jumlahMember }}</h2> <!-- Ganti dengan nilai statis -->
@@ -55,6 +55,31 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cek apakah ada flash message
+        if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        endif
+
+        if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        endif
+    });
+  </script>
 </body>
 
 </html>

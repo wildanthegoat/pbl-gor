@@ -26,11 +26,13 @@ class PesanController extends Controller
 
     // Validasi input
     $request->validate([
-        'id_lapangan' => 'required|exists:lapangans,id',
-        'tgl_main' => 'required|date|after_or_equal:today|before_or_equal:' . now()->addMonth()->toDateString(),
+        'id_lapangan' => 'required|exists:lapangans,id_lapangan',
+        'tanggal' => 'required|date|after_or_equal:today|before_or_equal:' . now()->addMonth()->toDateString(),
         'jam_mulai' => 'required|date_format:H:i|after_or_equal:09:00|before_or_equal:22:00',
         'jam_selesai' => 'required|date_format:H:i|after:jam_mulai|before_or_equal:22:00',
     ]);
+
+    Log::info('Validated Data: ', $request->all());
 
     // Calculate duration in hours
     $start_time = Carbon::createFromFormat('H:i', $request->jam_mulai);
@@ -53,15 +55,19 @@ class PesanController extends Controller
     // Save the order
     $pesanan = new Pesanan();
     $pesanan->id_lapangan = $request->id_lapangan;
-    $pesanan->user_id = Auth::id();
-    $pesanan->tgl_main = $request->tgl_main;
+    $pesanan->id_user = Auth::id();
+    $pesanan->tanggal = $request->tanggal;
     $pesanan->jam_mulai = $request->jam_mulai;
     $pesanan->jam_selesai = $request->jam_selesai;
-    $pesanan->harga = $total_price;
+    $pesanan->total_bayar = $total_price;
 
     $pesanan->save();
 
-    return redirect()->route('lapangan')->with('success', 'Booking berhasil dilakukan.');
+    Log::info('Order saved: ', ['id_pesanan' => $pesanan->id_pesanan]);
+
+    flash()->success('Booking berhasil dilakukan');
+    return redirect('/lapangan');
 }
+
 
 }

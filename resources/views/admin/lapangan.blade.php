@@ -18,7 +18,7 @@
       <div class="col-10 p-5 mt-5">
         <h3 class="judul">Data Lapangan</h3>
         <hr>
-        <button class="btn btn-inti mt-5" data-bs-toggle="modal" data-bs-target="#tambahModal">Tambah</button>
+       
         
         <!-- Modal Tambah -->
         <div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
@@ -80,9 +80,8 @@
               <td>{{ $lapangan->keterangan }}</td>
               <td><img src="{{ asset('images/' . $lapangan->foto) }}" alt="{{ $lapangan->nama_lapangan }}" width="100"></td>
               <td>
-
-              
                 <button class="btn btn-inti" data-bs-toggle="modal" data-bs-target="#editModal{{$lapangan->id_lapangan}}">Edit</button>
+                
                 <!-- Modal Edit -->
                 <div class="modal fade" id="editModal{{$lapangan->id_lapangan}}" tabindex="-1" aria-labelledby="editModal{{$lapangan->id_lapangan}}Label" aria-hidden="true">
                   <div class="modal-dialog">

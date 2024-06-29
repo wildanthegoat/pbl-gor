@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         * {
             margin: 0;
@@ -147,12 +148,39 @@
                 <span></span>
                 <label>Password</label>
             </div>
-            <div class="pass">Lupa Sandi?</div>
+
             <button class="button" type="submit">Login</button>
             <div class="signup_link">
                 Belum punya akun? <a href="{{ route('register') }}">Daftar</a>
             </div>
         </form>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cek apakah ada flash message
+        if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: "Success",
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        endif
+
+        if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: "Error",
+                text: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        endif
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>
